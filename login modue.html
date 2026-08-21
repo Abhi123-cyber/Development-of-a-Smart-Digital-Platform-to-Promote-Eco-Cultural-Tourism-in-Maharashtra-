@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Login | Smart Tourism</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    linear-gradient(#073c6799,#073c6799),
+    url("https://images.unsplash.com/photo-1590050752117-23a9d9f28c7f?auto=format&fit=crop&w=1800&q=80")
+    center/cover;
+}
+
+.login-container{
+    width:650px;
+    max-width:94%;
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0 15px 50px #0005;
+}
+
+.logo{
+    text-align:center;
+    color:#123d67;
+    font-size:23px;
+    font-weight:bold;
+}
+
+.logo span{
+    display:block;
+    font-size:45px;
+}
+
+h1{
+    text-align:center;
+    color:#17324d;
+}
+
+.subtitle{
+    text-align:center;
+    color:#667788;
+    margin-bottom:30px;
+}
+
+.login-options{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.login-card{
+    border:1px solid #d8e0e8;
+    border-radius:12px;
+    padding:28px 20px;
+    text-align:center;
+}
+
+.login-card:hover{
+    box-shadow:0 5px 20px #0002;
+}
+
+.icon{
+    font-size:45px;
+}
+
+.login-card h2{
+    color:#17324d;
+}
+
+.login-card p{
+    color:#667788;
+    min-height:45px;
+}
+
+button{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:7px;
+    background:#1267b1;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.admin-button{
+    background:#082c50;
+}
+
+.form{
+    display:none;
+    margin-top:25px;
+    border-top:1px solid #ddd;
+    padding-top:20px;
+}
+
+label{
+    display:block;
+    margin:12px 0 6px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccd5df;
+    border-radius:7px;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin-top:20px;
+    color:#1267b1;
+    text-decoration:none;
+}
+
+.error{
+    color:red;
+    text-align:center;
+}
+
+@media(max-width:600px){
+
+.login-options{
+    grid-template-columns:1fr;
+}
+
+.login-container{
+    padding:25px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+<div class="logo">
+<span>🌍</span>
+Smart Digital Tourism Platform
+</div>
+
+<h1>Login</h1>
+
+<p class="subtitle">
+Choose your account type
+</p>
+
+<div class="login-options">
+
+<!-- CUSTOMER -->
+
+<div class="login-card">
+
+<div class="icon">👤</div>
+
+<h2>Customer</h2>
+
+<p>
+Access customer tourism services and bookings.
+</p>
+
+<button onclick="showCustomer()">
+Customer Login
+</button>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<div class="login-card">
+
+<div class="icon">🛡️</div>
+
+<h2>Admin</h2>
+
+<p>
+Access the complete administration dashboard.
+</p>
+
+<button class="admin-button"
+onclick="showAdmin()">
+
+Admin Login
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CUSTOMER FORM -->
+
+<div id="customerForm" class="form">
+
+<h2>Customer Login</h2>
+
+<label>Email</label>
+
+<input
+type="email"
+id="customerEmail"
+placeholder="Enter email">
+
+
+<label>Password</label>
+
+<input
+type="password"
+id="customerPassword"
+placeholder="Enter password">
+
+
+<br><br>
+
+<button onclick="customerLogin()">
+Login
+</button>
+
+</div>
+
+
+<!-- ADMIN FORM -->
+
+<div id="adminForm" class="form">
+
+<h2>Admin Login</h2>
+
+<label>Email</label>
+
+<input
+type="email"
+id="adminEmail"
+placeholder="admin@tourism.com">
+
+
+<label>Password</label>
+
+<input
+type="password"
+id="adminPassword"
+placeholder="Enter password">
+
+
+<br><br>
+
+<button
+class="admin-button"
+onclick="adminLogin()">
+
+Login to Dashboard
+
+</button>
+
+<p id="error" class="error"></p>
+
+</div>
+
+
+<a href="explore.html" class="back">
+← Back to Explore
+</a>
+
+</div>
+
+
+<script>
+
+function showCustomer(){
+
+document.getElementById("customerForm")
+.style.display="block";
+
+document.getElementById("adminForm")
+.style.display="none";
+
+}
+
+
+function showAdmin(){
+
+document.getElementById("adminForm")
+.style.display="block";
+
+document.getElementById("customerForm")
+.style.display="none";
+
+}
+
+
+function customerLogin(){
+
+localStorage.setItem(
+"customerLoggedIn",
+"true"
+);
+
+alert("Customer login successful!");
+
+window.location.href="explore.html";
+
+}
+
+
+function adminLogin(){
+
+let email=
+document.getElementById("adminEmail").value;
+
+let password=
+document.getElementById("adminPassword").value;
+
+
+/*
+DEMO ADMIN LOGIN
+
+Email:
+admin@tourism.com
+
+Password:
+admin123
+*/
+
+if(
+email==="admin@tourism.com" &&
+password==="admin123"
+){
+
+localStorage.setItem(
+"adminLoggedIn",
+"true"
+);
+
+window.location.href=" admin dashboard.html";
+
+}
+
+else{
+
+document.getElementById("error")
+.innerText="Invalid admin email or password.";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
