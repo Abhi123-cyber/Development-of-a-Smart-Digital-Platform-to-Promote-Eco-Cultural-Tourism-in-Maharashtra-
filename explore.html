@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore | Smart Digital Tourism Platform</title>
+
+    <style>
+        /* =========================
+           BASIC STYLES
+        ========================= */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7f9;
+            color: #19344f;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+        header {
+            height: 78px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #17456c;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            font-size: 38px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-icon {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            text-decoration: none;
+            background: #1267b1;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 7px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .login-btn:hover {
+            background: #084e89;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+        .hero {
+            min-height: 390px;
+            padding-top: 45px;
+            background: linear-gradient(rgba(12,72,108,0.45), rgba(12,72,108,0.45)),
+                        url("https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=1800&q=80");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            text-align: center;
+            color: white;
+            font-size: 38px;
+            margin: 10px auto 35px;
+            max-width: 950px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+        }
+
+        /* =========================
+           SEARCH
+        ========================= */
+        .search-box {
+            width: 85%;
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1fr 0.7fr;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.25);
+        }
+
+        .search-field {
+            padding: 18px;
+            border-right: 1px solid #ddd;
+            
+        }
+
+        .search-field label {
+            display: block;
+            color: #657585;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .search-field input,
+        .search-field select {
+            width: 100%;
+            border: 0;
+            outline: 0;
+            font-size: 16px;
+            color: #243d53;
+            background: white;
+        }
+
+        .search-button {
+            border: 0;
+            background: #1267b1;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .search-button:hover {
+            background: #0b4e88;
+        }
+
+        /* =========================
+           FEATURE TABS (ALL 4 PRESENT)
+        ========================= */
+        .feature-tabs {
+            width: 85%;
+            max-width: 1080px;
+            margin: -25px auto 0;
+            position: relative;
+            background: #092f54;
+            border-radius: 9px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            box-shadow: 0 5px 18px rgba(0,0,0,0.25);
+            z-index: 5;
+        }
+
+        .feature-tab {
+            min-height: 90px;
+            color: rgb(242, 234, 234);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            border-right: 1px solid rgba(255,255,255,0.25);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .feature-tab:last-child {
+            border-right: none;
+        }
+
+        .feature-tab:hover,
+        .feature-tab.active {
+            background: #2b82cd;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+        }
+
+        .feature-name {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+        .container {
+            width: 85%;
+            max-width: 1100px;
+            margin: 45px auto;
+        }
+
+        /* =========================
+           TAB CONTENT
+        ========================= */
+        .tab-content {
+            display: none;
+            background: rgb(58, 33, 195);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #1267b1;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h2 {
+            margin-top: 0;
+            color: #173b59;
+        }
+
+        .tab-content p {
+            color: #667788;
+            line-height: 1.6;
+        }
+
+        .primary-btn {
+            border: none;
+            background: #2467a2;
+            color: white;
+            padding: 13px 25px;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .primary-btn:hover {
+            background: #084e89;
+        }
+
+        /* =========================
+           SAFETY ALERTS
+        ========================= */
+        .alert-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 18px;
+            margin: 12px 0;
+            border-radius: 8px;
+            background: #d5893d;
+            border-left: 5px solid #ef642d;
+        }
+
+        .alert-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ef642d;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .alert-text {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: bold;
+            color: #c65328;
+            font-size: 17px;
+        }
+
+        .alert-status {
+            color: #687886;
+            margin-top: 5px;
+        }
+
+        /* =========================
+           DIGITAL ID
+        ========================= */
+        .digital-id {
+            max-width: 600px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0b4d80, #1267b1);
+            color: rgb(188, 78, 78);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .id-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .id-photo {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #1267b1;
+            font-size: 40px;
+        }
+
+        .id-row {
+            margin-top: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .id-label {
+            opacity: 0.75;
+            font-size: 13px;
+        }
+
+        .id-value {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           ECO TIPS
+        ========================= */
+        .eco-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .eco-card {
+            padding: 20px;
+            background: #f1f9f1;
+            border-radius: 8px;
+            border-left: 5px solid #4b9b45;
+        }
+
+        .eco-card h3 {
+            margin-top: 0;
+            color: #327431;
+        }
+
+        /* =========================
+           DESTINATIONS
+        ========================= */
+        .section-title {
+            font-size: 27px;
+            color: #173b59;
+            margin-bottom: 22px;
+        }
+
+        .destinations {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .destination {
+            background: white;
+            border-radius: 9px;
+            overflow: hidden;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            transition: 0.25s;
+        }
+
+        .destination:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .destination img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .destination-body {
+            padding: 18px;
+        }
+
+        .destination h3 {
+            margin: 0 0 8px;
+            font-size: 20px;
+        }
+
+        .destination p {
+            color: #697a88;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .explore-btn {
+            border: 0;
+            background: #f2aa00;
+            color: white;
+            padding: 9px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+        footer {
+            background: #092f54;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================= */
+        @media(max-width: 850px) {
+            .feature-tabs {
+                grid-template-columns: 1fr 1fr;
+            }
+            .search-box {
+                grid-template-columns: 1fr 1fr;
+            }
+            .destinations {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width: 600px) {
+            header {
+                padding: 0 15px;
+            }
+            .logo {
+                font-size: 16px;
+            }
+            .logo-icon {
+                font-size: 28px;
+            }
+            .header-icon {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 26px;
+            }
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+            .feature-tabs {
+                grid-template-columns: 1fr;
+            }
+            .destinations {
+                grid-template-columns: 1fr;
+            }
+            .eco-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                width: 92%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <span class="logo-icon">🌍</span>
+            <span>Smart Digital Tourism Platform</span>
+        </div>
+        <div class="header-right">
+            <span class="header-icon" title="Notifications">🔔</span>
+            <span class="header-icon" title="Messages">✉️</span>
+            <span class="header-icon" title="Search">🔍</span>
+            <a href="login modue.html" class="login-btn" >Login</a>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Explore Maharashtra's Eco & Cultural Heritage</h1>
+        <div class="search-box">
+            <div class="search-field">
+                <label>DESTINATION</label>
+                <input type="text" placeholder="Where do you want to go?">
+                
+            </div>
+            <div class="search-field">
+                <label>TRAVEL DATES</label>
+                <input type="date">
+            </div>
+            <div class="search-field">
+                <label>INTERESTS</label>
+                <select>
+                    <option value="">Select Interest</option>
+                    <option>Eco Tourism</option>
+                    <option>Historical Places</option>
+                    <option>Wildlife</option>
+                    <option>Adventure</option>
+                    <option>Cultural Tourism</option>
+                </select>
+            </div>
+            <button class="search-button">Search</button>
+        </div>
+    </section>
+
+    <!-- ALL 4 FEATURE TABS: AI PLANNER OPENS PLANNER.HTML -->
+    <div class="feature-tabs">
+        <a href="ai trip planner.html" class="feature-tab " title="Open AI Trip Planner Page">
+            <span class="feature-icon">🤖</span>
+            <span class="feature-name">AI Trip Planner</span>
+        </a>
+
+        <div class="feature-tab " onclick="openTab('safety', this)">
+            <section id="safety" class="tab-view"> </section>
+            <span class="feature-icon">📍</span>
+            <span class="feature-name">Safety Alerts</span>
+        </div>
+
+        <div class="feature-tab" onclick="openTab('touristID', this)">
+            <span class="feature-icon">💛</span>
+            <span class="feature-name">Digital Tourist ID</span>
+        </div>
+
+        <div class="feature-tab" onclick="openTab('eco', this)">
+            <span class="feature-icon">🌿</span>
+            <span class="feature-name">Eco-Friendly Tips</span>
+        </div>
+    </div>
+
+    <!-- MAIN BODY -->
+    <div class="container">
+
+        <!-- TAB 1: SAFETY ALERTS -->
+        <section id="safety" class="tab-content active">
+            <h2>📍 Safety Alerts & Assistance</h2>
+            <p>Stay informed about real-time advisories, weather updates, and emergency contacts during your trip.</p>
+            
+            <div class="alert-card">
+                <div class="alert-icon">⚠</div>
+                <div class="alert-text">
+                    <div class="alert-title">Restricted Zone Advisory</div>
+                    <div class="alert-status">Entry restricted in core forest areas of Tadoba post 6:00 PM.</div>
+                </div>
+            </div>
+
+            <div class="alert-card">
+                <div class="alert-icon">🌧</div>
+                <div class="alert-text">
+                    <div class="alert-title">Weather Precaution</div>
+                    <div class="alert-status">Ghat sections in Lonavala and Mahabaleshwar may experience heavy fog.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: DIGITAL TOURIST ID -->
+        <section id="touristID" class="tab-content">
+            <h2>💛 Digital Tourist ID</h2>
+            <p>Your digital tourist identity can be used for tourism services, safety assistance, and rapid verification.</p>
+
+            <div class="digital-id">
+                <div class="id-header">
+                    <div>
+                        <h2 style="color:white; margin:0;">Digital Tourist ID</h2>
+                        <p style="color:white; margin:5px 0 0;">Smart Digital Tourism Platform</p>
+                    </div>
+                    <div class="id-photo">👤</div>
+                </div>
+
+                <div class="id-row">
+                    <div class="id-label">TOURIST NAME</div>
+                    <div class="id-value">Guest Tourist</div>
+                </div>
+                <div class="id-row">
+                    <div class="id-label">TOURIST ID</div>
+                    <div class="id-value">SDTP-2026-00125</div>
+                </div>
+                <div class="id-row">
+                    <div class="id-label">STATUS</div>
+                    <div class="id-value">✓ Active</div>
+                </div>
+                <div class="id-row">
+                    <div class="id-label">EMERGENCY SUPPORT</div>
+                    <div class="id-value">Available 24x7</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: ECO TIPS -->
+        <section id="eco" class="tab-content">
+            <h2>🌿 Eco-Friendly Tourism Tips</h2>
+            <p>Travel responsibly and help preserve Maharashtra's natural and cultural heritage.</p>
+
+            <div class="eco-grid">
+                <div class="eco-card">
+                    <h3>♻️ Reduce Plastic</h3>
+                    <p>Carry reusable water bottles and avoid single-use plastic during your journey.</p>
+                </div>
+                <div class="eco-card">
+                    <h3>🌳 Protect Nature</h3>
+                    <p>Do not damage plants, forests, or natural habitats while visiting tourist locations.</p>
+                </div>
+                <div class="eco-card">
+                    <h3>🐅 Respect Wildlife</h3>
+                    <p>Maintain a safe distance from animals and never feed wildlife.</p>
+                </div>
+                <div class="eco-card">
+                    <h3>🏘️ Support Local Communities</h3>
+                    <p>Purchase local products and support local guides, artisans, and businesses.</p>
+                </div>
+                <div class="eco-card">
+                    <h3>🚆 Use Sustainable Transport</h3>
+                    <p>Prefer public transport, walking, or shared transit whenever possible.</p>
+                </div>
+                <div class="eco-card">
+                    <h3>🏛️ Protect Heritage</h3>
+                    <p>Respect historical monuments and never deface or damage heritage structures.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DESTINATIONS SECTION -->
+        <h2 class="section-title">Top Destinations in Maharashtra</h2>
+        <div class="destinations">
+            <div class="destination">
+                <img src="https://images.unsplash.com/photo-1606298855672-3efb63017be8?auto=format&fit=crop&w=900&q=80" alt="Ajanta Caves">
+                <div class="destination-body">
+                    <h3>Ajanta Caves</h3>
+                    <p>Ancient Buddhist rock-cut caves famous for paintings and sculptures.</p>
+                    <a href="planner.html" class="explore-btn">Plan Trip</a>
+                </div>
+            </div>
+
+            <div class="destination">
+                <img src="https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=900&q=80" alt="Ellora Caves">
+                <div class="destination-body">
+                    <h3>Ellora Caves</h3>
+                    <p>Historic rock-cut architecture representing Buddhist, Hindu, and Jain traditions.</p>
+                    <a href="planner.html" class="explore-btn">Plan Trip</a>
+                </div>
+            </div>
+
+            <div class="destination">
+                <img src="https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=900&q=80" alt="Tadoba Tiger Reserve">
+                <div class="destination-body">
+                    <h3>Tadoba Tiger Reserve</h3>
+                    <p>A famous wildlife destination known for tigers and rich biodiversity.</p>
+                    <a href="planner.html" class="explore-btn">Plan Trip</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <strong>Smart Digital Tourism Platform</strong><br><br>
+        Promoting Maharashtra's Eco & Cultural Heritage<br><br>
+        &copy; 2026 Smart Digital Tourism Platform
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function openTab(tabName, clickedTab) {
+            const tabs = document.querySelectorAll(".tab-content");
+            tabs.forEach(tab => tab.classList.remove("active"));
+
+            const buttons = document.querySelectorAll(".feature-tab");
+            buttons.forEach(button => button.classList.remove("active"));
+
+            const activeSection = document.getElementById(tabName);
+            if (activeSection) {
+                activeSection.classList.add("active");
+                if (clickedTab) clickedTab.classList.add("active");
+                activeSection.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }
+    </script>
+</body>
+/* =========================================================
+   AI TRIP PLANNER ENGINE (planner.js or inside <script>)
+========================================================= */
+
+// Comprehensive destination database covering activities and food
+const destinationData = {
+    "Ajanta Caves": {
+        spots: [
+            "Ajanta View Point for panoramic canyon views",
+            "Cave 1 & 2 (renowned Bodhisattva murals)",
+            "Cave 19 & 26 (intricately carved chaitya halls)",
+            "Waghora River waterfall viewpoint",
+            "Local handicraft stalls and Buddhist artifact markets"
+        ],
+        food: "Try authentic local Maharashtrian vegetarian Thali, Pithla Bhakri, and fresh sugarcane juice.",
+        ecoTip: "Ajanta is an ancient UNESCO heritage zone. Do not use flash photography inside fresco caves and avoid plastic litter."
+    },
+    "Ellora Caves": {
+        spots: [
+            "Kailasa Temple (Cave 16 - world's largest monolithic rock excavation)",
+            "Buddhist group of caves (Caves 1–12)",
+            "Jain cave excavations (Indra Sabha)",
+            "Daulatabad Fort & Chand Minar hike",
+            "Bibi Ka Maqbara (Taj of the Deccan)"
+        ],
+        food: "Sample Aurangabadi Naan Qalia, Tahri, or authentic Marathwada spiced bhakri.",
+        ecoTip: "Use authorized electric feeder buses between cave clusters to minimize carbon footprint."
+    },
+    "Tadoba Tiger Reserve": {
+        spots: [
+            "Early morning Core Safari in Moharli Zone",
+            "Tadoba Lake bird watching and crocodile sighting",
+            "Evening Buffer Zone Game Drive (Agarezari / Junona)",
+            "Nature interpretation center & tribal village walk",
+            "Kolsa forest canopy trail"
+        ],
+        food: "Enjoy Vidarbha specialty Saoji delicacies and fresh organic farm meals.",
+        ecoTip: "Strictly adhere to safari speed limits, maintain complete silence, and never throw waste in forest zones."
+    },
+    "Mahabaleshwar": {
+        spots: [
+            "Arthur's Seat & Echo Point cliff views",
+            "Boating at Venna Lake",
+            "Elephant's Head Point & Kate's Point",
+            "Mapro Garden agro-tourism complex",
+            "Local organic strawberry farms and Panchgani Table Land"
+        ],
+        food: "Indulge in fresh strawberries with cream, corn pattice, and hot Maharashtrian Misal Pav.",
+        ecoTip: "Support local strawberry farmers directly and opt for walking or shared transport along ghat roads."
+    },
+    "Lonavala": {
+        spots: [
+            "Tiger's Leap (Tiger Point) panoramic canyon overlook",
+            "Bhushi Dam waterfalls and nature trails",
+            "Karla & Bhaja ancient rock-cut Buddhist caves",
+            "Lohagad or Rajmachi Fort scenic trek",
+            "Lonavala Chikki bazaar and heritage viewpoints"
+        ],
+        food: "Taste classic hot ginger tea, crunchy Lonavala Chikki, and spicy Batata Vada.",
+        ecoTip: "Keep monsoon streams clear of plastic and glass bottles."
+    },
+    "Mumbai": {
+        spots: [
+            "Gateway of India & Colaba heritage stroll",
+            "Ferry excursion to Elephanta Caves UNESCO site",
+            "Chhatrapati Shivaji Maharaj Terminus (CSMT) heritage architecture",
+            "Marine Drive promenade evening walk (Queen's Necklace)",
+            "Bandra Bandstand & street-art trail"
+        ],
+        food: "Savor iconic Mumbai Vada Pav, Pav Bhaji at Chowpatty, and coastal Konkani seafood.",
+        ecoTip: "Make use of Mumbai's suburban local train network and electric BEST buses."
+    },
+    "Pune": {
+        spots: [
+            "Shaniwar Wada Maratha empire seat",
+            "Aga Khan Palace memorial and museum",
+            "Sinhagad Fort ridge trek",
+            "Pataleshwar 8th-century rock-cut temple",
+            "Fergusson College Road and cultural cafes"
+        ],
+        food: "Enjoy Puneri Puneri Misal, Bhakarwadi from Chitale Bandhu, and authentic mastani shakes.",
+        ecoTip: "Use the Pune Metro and city bus routes to navigate traffic sustainably."
+    },
+    "Nashik": {
+        spots: [
+            "Trimbakeshwar Shiva Jyotirlinga Temple",
+            "Pandavleni Caves (24 Buddhist rock-cut shrines)",
+            "Godavari River Ramkund ghats",
+            "Sula & York agro-tourism vineyard walk",
+            "Panchavati & Sita Gufa heritage area"
+        ],
+        food: "Try spicy Nashik Misal Pav with rassa, sweet Jalebis, and fresh vineyard grape spreads.",
+        ecoTip: "Preserve the cleanliness of the holy Godavari river banks and buy local farm produce."
+    },
+    "Chhatrapati Sambhajinagar": {
+        spots: [
+            "Bibi Ka Maqbara monument",
+            "Historic Panchakki (ancient medieval water mill)",
+            "Daulatabad Fort fortified citadel",
+            "Himroo and Paithani handloom weaving clusters",
+            "Aurangabad Caves Buddhist complex"
+        ],
+        food: "Relish authentic local Pulao, Naan Qalia, and regional pedha sweets.",
+        ecoTip: "Purchase handmade Himroo and Paithani textiles directly from artisan cooperatives."
+    }
+};
+
+/**
+ * Validates inputs and generates the customized itinerary
+ */
+function generatePlan() {
+    const destinationEl = document.getElementById("planDestination");
+    const dateEl = document.getElementById("planDate");
+    const interestEl = document.getElementById("planInterest");
+    const daysEl = document.getElementById("planDays");
+    const budgetEl = document.getElementById("planBudget");
+    const peopleEl = document.getElementById("planPeople");
+    const resultBox = document.getElementById("planResult");
+
+    const destination = destinationEl.value.trim();
+    const travelDate = dateEl.value;
+    const interest = interestEl.value;
+    const days = parseInt(daysEl.value, 10);
+    const budget = budgetEl.value;
+    const tourists = parseInt(peopleEl.value, 10);
+
+    // Form validation
+    if (!destination) {
+        alert("Please select a destination from the list.");
+        destinationEl.focus();
+        return;
+    }
+    if (!travelDate) {
+        alert("Please select your travel start date.");
+        dateEl.focus();
+        return;
+    }
+    if (isNaN(tourists) || tourists < 1) {
+        alert("Please specify a valid tourist count (at least 1 person).");
+        peopleEl.focus();
+        return;
+    }
+
+    // Retrieve destination details or fallback
+    const selectedData = destinationData[destination] || {
+        spots: [
+            `${destination} Main Landmark`,
+            "Historic District Walk",
+            "Scenic Nature Viewpoint",
+            "Cultural Art Center",
+            "Local Market"
+        ],
+        food: "Explore authentic regional dishes at certified local restaurants.",
+        ecoTip: "Carry a reusable water container and avoid single-use plastics."
+    };
+
+    const spotsList = selectedData.spots;
+
+    // Build the Summary Header
+    let itineraryHTML = `
+        <div class="ai-success">✓ AI Trip Plan Generated Successfully</div>
+        <h2>🤖 Your Personalized Trip Plan for ${destination}</h2>
+        
+        <div class="trip-summary">
+            <div class="summary-card">📍<strong>${destination}</strong>Destination</div>
+            <div class="summary-card">📅<strong>${travelDate}</strong>Start Date</div>
+            <div class="summary-card">📆<strong>${days} Day${days > 1 ? "s" : ""}</strong>Duration</div>
+            <div class="summary-card">👥<strong>${tourists} Tourist${tourists > 1 ? "s" : ""}</strong>Group Size</div>
+        </div>
+
+        <p><strong>🎯 Travel Focus:</strong> ${interest} &nbsp;|&nbsp; <strong>💰 Budget Tier:</strong> ${budget}</p>
+        <hr style="border:0; border-top:1px solid #e1eaf0; margin:20px 0;">
+    `;
+
+    // Calculate Day-by-Day Schedule
+    for (let day = 1; day <= days; day++) {
+        const morningSpot = spotsList[(day - 1) % spotsList.length];
+        const afternoonSpot = spotsList[day % spotsList.length];
+        const eveningSpot = spotsList[(day + 1) % spotsList.length];
+
+        itineraryHTML += `
+            <div class="day-card">
+                <h3>📅 Day ${day}</h3>
+                <p>🌅 <strong>Morning:</strong> Start early and explore <em>${morningSpot}</em>.</p>
+                <p>☀️ <strong>Afternoon:</strong> Visit <em>${afternoonSpot}</em> followed by a relaxing lunch break.</p>
+                <p>🌆 <strong>Evening:</strong> Unwind at <em>${eveningSpot}</em> and enjoy sunset views.</p>
+                <p>🍽️ <strong>Cuisine Recommendation:</strong> ${selectedData.food}</p>
+                <p>🌿 <strong>Responsible Eco-Tip:</strong> ${selectedData.ecoTip}</p>
+            </div>
+        `;
+    }
+
+    // Add transport, safety & advisory guidance
+    itineraryHTML += `
+        <div class="day-card" style="background:#f9fcff; border-left-color:#0b4d80;">
+            <h3>🚗 Transport & Travel Advisory</h3>
+            <p>• <strong>Mobility:</strong> Prefer state transport buses, registered tourist taxis, or electric local autos where available.</p>
+            <p>• <strong>Safety & Essentials:</strong> Keep digital copies of your Tourist ID, carry necessary prescription medicines, and stay hydrated.</p>
+        </div>
+    `;
+
+    // Render results into the page and scroll smoothly
+    resultBox.innerHTML = itineraryHTML;
+    resultBox.style.display = "block";
+    resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+/**
+ * Resets the trip planner form and clears previous results
+ */
+function clearPlan() {
+    document.getElementById("planDestination").value = "";
+    document.getElementById("planDate").value = "";
+    document.getElementById("planInterest").selectedIndex = 0;
+    document.getElementById("planDays").value = "1";
+    document.getElementById("planBudget").selectedIndex = 0;
+    document.getElementById("planPeople").value = "2";
+
+    const resultBox = document.getElementById("planResult");
+    resultBox.innerHTML = "";
+    resultBox.style.display = "none";
+}
+</html>
