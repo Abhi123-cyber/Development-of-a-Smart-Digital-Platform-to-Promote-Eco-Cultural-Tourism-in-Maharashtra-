@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - Smart Digital Tourism</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 230px;
+            height: 100vh;
+            background: #102d54;
+            color: white;
+            padding: 20px 15px;
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 35px;
+        }
+
+        .logo span {
+            color: #42a5f5;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            padding: 15px 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .menu li:hover {
+            background: #1e4d82;
+        }
+
+        .menu li.{
+            background: #2476c7;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 230px;
+            padding: 25px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+            color: #222;
+        }
+
+        .logout {
+            background: #e53935;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            padding: 22px;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .blue {
+            background: #1976d2;
+        }
+
+        .red {
+            background: #e64a35;
+        }
+
+        .orange {
+            background: #f4a623;
+        }
+
+        .green {
+            background: #28a745;
+        }
+
+        /* Dashboard Sections */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .panel h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* Chart */
+        .chart {
+            height: 230px;
+            display: flex;
+            align-items: end;
+            gap: 20px;
+            padding: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .bar {
+            flex: 1;
+            background: #2980d9;
+            border-radius: 4px 4px 0 0;
+        }
+
+        /* Map */
+        .map {
+            height: 230px;
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/India_map_en.svg/800px-India_map_en.svg.png");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 13px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background: #f5f5f5;
+        }
+
+        .alert strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Mobile */
+        @media(max-width: 900px) {
+
+            .sidebar {
+                width: 180px;
+            }
+
+            .main {
+                margin-left: 180px;
+            }
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 600px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <div class="logo">
+            🌍 Smart Digital Tourism
+            <span>Platform</span>
+        </div>
+
+        <ul class="menu">
+            <li class="active">📊 Dashboard</li>
+            <li>👤 User Management</li>
+            <li>⚠️ Tourist Alerts</li>
+            <li>🎫 Booking Management</li>
+            <li>📈 Analytics</li>
+            <li>⚙️ Settings</li>
+            <li>📋 Logs</li>
+        </ul>
+
+    </div>
+
+
+    <!-- MAIN DASHBOARD -->
+    <div class="main">
+
+        <div class="topbar">
+
+            <h1>Admin Dashboard</h1>
+
+            <button class="logout" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+        <div class="cards">
+
+            <div class="card blue">
+                <h3>Total Users</h3>
+                <p>1,258</p>
+            </div>
+
+            <div class="card red">
+                <h3>Active Alerts</h3>
+                <p>12</p>
+            </div>
+
+            <div class="card orange">
+                <h3>Bookings Today</h3>
+                <p>85</p>
+            </div>
+
+            <div class="card green">
+                <h3>Issues Reported</h3>
+                <p>3</p>
+            </div>
+
+        </div>
+
+
+        <!-- DASHBOARD CONTENT -->
+        <div class="dashboard-grid">
+
+            <!-- Tourist Activity -->
+            <div class="panel">
+
+                <h2>Tourist Activity</h2>
+
+                <div class="chart">
+
+                    <div class="bar" style="height:35%"></div>
+                    <div class="bar" style="height:55%"></div>
+                    <div class="bar" style="height:75%"></div>
+                    <div class="bar" style="height:45%"></div>
+                    <div class="bar" style="height:65%"></div>
+                    <div class="bar" style="height:85%"></div>
+                    <div class="bar" style="height:70%"></div>
+                    <div class="bar" style="height:95%"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Live Map -->
+            <div class="panel">
+
+                <h2>Live Map Monitoring</h2>
+
+                <div class="map"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALERTS -->
+        <div class="panel" style="margin-top:20px;">
+
+            <h2>Recent Alerts</h2>
+
+            <div class="alert">
+                <strong>🚨 Restricted Zone Alert</strong>
+                Unauthorized tourist activity detected.
+            </div>
+
+            <div class="alert">
+                <strong>⚠️ Emergency Alert</strong>
+                Emergency reported at tourist location.
+            </div>
+
+            <div class="alert">
+                <strong>🏨 Hotel Booking</strong>
+                New hotel booking received.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function logout() {
+
+            window.location.href = "index.html";
+
+        }
+
+    </script>
+
+</body>
+</html>
